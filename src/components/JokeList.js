@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { TimelineMax } from "gsap/all";
 import Joke from "./Joke";
 import uuid from "uuid";
 import "./JokeList.css";
@@ -12,8 +11,6 @@ class JokeList extends Component {
 
   constructor(props) {
     super(props);
-
-    this.tl = new TimelineMax({ paused: true });
 
     this.state = {
       jokes: JSON.parse(localStorage.getItem("jokes")) || [],
