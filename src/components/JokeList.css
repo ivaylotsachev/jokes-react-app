@@ -1,27 +1,41 @@
 .JokeList {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 80%;
   height: 80%;
 }
 
 .Jokelist_sidebar {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   width: 30%;
   background: #9575cd;
+  -webkit-box-shadow: -5px 10px 10px rgba(0, 0, 0, 0.3);
   box-shadow: -5px 10px 10px rgba(0, 0, 0, 0.3);
 }
 
 .Jokelist_sidebar img {
   width: 50%;
+  -webkit-box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   margin: 2rem auto;
 }
 
 .Jokelist_title {
+  -webkit-text-emphasis: none;
   text-emphasis: none;
   text-align: center;
   font-size: 3rem;
@@ -41,8 +55,41 @@
   width: 70%;
   overflow: scroll;
   background: white;
+  -ms-flex-item-align: center;
   align-self: center;
+  -webkit-box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+.JokeList_getmore {
+  font-size: 1.2rem;
+  border-radius: 2rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  margin-top: 2rem;
+  word-spacing: 2rem;
+  -webkit-transition: 0.6s ease;
+  transition: 0.6s ease;
+  -webkit-box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(179, 229, 252, 1) 0%,
+    rgba(179, 229, 252, 1) 50%,
+    rgba(240, 98, 146, 1) 50%,
+    rgba(240, 98, 146, 1) 100%
+  );
+}
+
+.JokeList_getmore:hover {
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 .spinner {
@@ -50,8 +97,17 @@
   width: 100vw;
   height: 100vh;
   color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }

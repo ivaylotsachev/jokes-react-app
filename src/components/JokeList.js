@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { TimelineMax } from "gsap/all";
 import Joke from "./Joke";
 import uuid from "uuid";
 import "./JokeList.css";
@@ -11,6 +12,8 @@ class JokeList extends Component {
 
   constructor(props) {
     super(props);
+
+    this.tl = new TimelineMax({ paused: true });
 
     this.state = {
       jokes: JSON.parse(localStorage.getItem("jokes")) || [],
@@ -25,6 +28,8 @@ class JokeList extends Component {
   }
 
   async getJokes() {
+    this.setState({ isLoading: true });
+
     try {
       let jokes = [];
 
@@ -67,6 +72,12 @@ class JokeList extends Component {
     this.setState({ isLoading: true }, () => this.getJokes());
   };
 
+  compare(newJokes, oldJokes) {
+    newJokes = newJokes.map(e => e.joke);
+    oldJokes = oldJokes.map(e => e.joke);
+    console.error("new jokes", newJokes);
+  }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -88,8 +99,8 @@ class JokeList extends Component {
               src="https://cdn0.iconfinder.com/data/icons/classic-icons/512/093.png"
               alt="app icon here"
             />
-            <button className="Jokelist_getmore" onClick={this.handleClick}>
-              Get more
+            <button className="JokeList_getmore" onClick={this.handleClick}>
+              Fetch Jokes
             </button>
           </div>
           <div className="JokeList_jokes">
