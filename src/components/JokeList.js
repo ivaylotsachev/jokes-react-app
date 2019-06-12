@@ -24,25 +24,33 @@ class JokeList extends Component {
 
     while (jokes.length < this.props.numJokesToGet) {
       let response = await axios.get("https://icanhazdadjoke.com/", {
-        headers: {
-          Accept: "application/json"
-        }
+        headers: { Accept: "application/json" }
       });
 
       jokes.push({ id: uuid(), joke: response.data.joke, votes: 0 });
-      /* save to localstorage */
-      localStorage.setItem("jokes", JSON.stringify(jokes));
     }
 
-    this.setState({ jokes });
+    this.setState(
+      st => ({
+        jokes: [...st.jokes, ...jokes]
+      }),
+      () => localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
+    );
   }
 
   handleVote = (id, delta) => {
-    this.setState(oldState => ({
-      jokes: oldState.jokes.map(j =>
-        j.id === id ? { ...j, votes: j.votes + delta } : j
-      )
-    }));
+    this.setState(
+      oldState => ({
+        jokes: oldState.jokes.map(j =>
+          j.id === id ? { ...j, votes: j.votes + delta } : j
+        )
+      }),
+      () => localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
+    );
+  };
+
+  handleClick = () => {
+    this.getJokes();
   };
 
   render() {
@@ -56,7 +64,9 @@ class JokeList extends Component {
             src="https://cdn0.iconfinder.com/data/icons/classic-icons/512/093.png"
             alt="app icon here"
           />
-          <button className="Jokelist_getmore">Get more</button>
+          <button className="Jokelist_getmore" onClick={this.handleClick}>
+            Get more
+          </button>
         </div>
         <div className="JokeList_jokes">
           {this.state.jokes.map(j => (
