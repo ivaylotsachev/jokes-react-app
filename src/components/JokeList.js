@@ -12,7 +12,10 @@ class JokeList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { jokes: JSON.parse(localStorage.getItem("jokes")) || [] };
+    this.state = {
+      jokes: JSON.parse(localStorage.getItem("jokes")) || [],
+      isLoading: false
+    };
   }
 
   componentDidMount() {
@@ -32,6 +35,7 @@ class JokeList extends Component {
 
     this.setState(
       st => ({
+        isLoading: false,
         jokes: [...st.jokes, ...jokes]
       }),
       () => localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
@@ -50,37 +54,46 @@ class JokeList extends Component {
   };
 
   handleClick = () => {
-    this.getJokes();
+    this.setState({ isLoading: true }, () => this.getJokes());
   };
 
   render() {
-    return (
-      <div className="JokeList">
-        <div className="Jokelist_sidebar">
-          <h1 className="Jokelist_title">
-            <span>Funny</span> Jokes
-          </h1>
-          <img
-            src="https://cdn0.iconfinder.com/data/icons/classic-icons/512/093.png"
-            alt="app icon here"
-          />
-          <button className="Jokelist_getmore" onClick={this.handleClick}>
-            Get more
-          </button>
+    if (this.state.isLoading) {
+      return (
+        <div className="spinner">
+          <i className="far fa-8x fa-laugh fa-spin" />
+          <h1>Loading...</h1>
         </div>
-        <div className="JokeList_jokes">
-          {this.state.jokes.map(j => (
-            <Joke
-              key={j.id}
-              text={j.joke}
-              votes={j.votes}
-              upVote={() => this.handleVote(j.id, 1)}
-              downVote={() => this.handleVote(j.id, -1)}
+      );
+    } else {
+      return (
+        <div className="JokeList">
+          <div className="Jokelist_sidebar">
+            <h1 className="Jokelist_title">
+              <span>Funny</span> Jokes
+            </h1>
+            <img
+              src="https://cdn0.iconfinder.com/data/icons/classic-icons/512/093.png"
+              alt="app icon here"
             />
-          ))}
+            <button className="Jokelist_getmore" onClick={this.handleClick}>
+              Get more
+            </button>
+          </div>
+          <div className="JokeList_jokes">
+            {this.state.jokes.map(j => (
+              <Joke
+                key={j.id}
+                text={j.joke}
+                votes={j.votes}
+                upVote={() => this.handleVote(j.id, 1)}
+                downVote={() => this.handleVote(j.id, -1)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
